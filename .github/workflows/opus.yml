@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          name: xiph/opus
+          repository: xiph/opus
           submodules: 'true'
 
       - name: Setup MSYS2
