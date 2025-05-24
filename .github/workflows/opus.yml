@@ -11,7 +11,7 @@ jobs:
       matrix:
         include:
           - { arch: x64, sys: MINGW64, prefix: mingw64, carch: x86_64 }
-          - { arch: x86, sys: MINGW32, prefix: mingw32, carch: i686 }
+          #- { arch: x86, sys: MINGW32, prefix: mingw32, carch: i686 }
 
     steps:
       - name: Checkout
