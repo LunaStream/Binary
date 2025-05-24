@@ -25,7 +25,7 @@ jobs:
         with:
           msystem: ${{ matrix.sys }}
         
-      - run: ls -l
+      - run: ls
 
       - name: Autogen configure file
         run: |
