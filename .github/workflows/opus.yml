@@ -35,7 +35,6 @@ jobs:
           set MSYSTEM=${{ matrix.sys }}
           msys2 -c './autogen.sh'
       
-      - run: make 
       - run: ls
 
       - name: Build Binary
