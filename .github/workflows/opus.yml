@@ -24,6 +24,8 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.sys }}
+        
+      - run: ls -l
 
       - name: Autogen configure file
         run: |
