@@ -74,7 +74,7 @@ jobs:
 
          # Install arch specific additional Pkgs if needed 
          if [ "${{ matrix.pkgs }}" != ""]; then
-         echo "📦 Found ${{ matrix.pkgs }} pkgs to install for arch: ${{ maxtrix.arch}} ! Installing them...."
+         echo "📦 Found ${{ matrix.pkgs }} pkgs to install for arch: ${{ matrix.arch}} ! Installing them...."
          sudo apt-get install -y ${{ matrix.pkgs }}
          fi
 
