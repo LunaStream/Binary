@@ -79,20 +79,20 @@ jobs:
          fi
 
          # Install cross-compilers only if needed
-         if [ "${{ matrix.arch.host }}" != "" ]; then
-          sudo apt-get install -y ${{ matrix.arch.cc }} ${{ matrix.arch.cxx }}
+         if [ "${{ matrix.host }}" != "" ]; then
+          sudo apt-get install -y ${{ matrix.cc }} ${{ matrix.cxx }}
          fi
 
-      - name: Build Opus from source (Linux ${{ matrix.arch.arch }})
+      - name: Build Opus from source (Linux ${{ matrix.arch }})
         run: |
          ./autogen.sh
-         CC=${{ matrix.arch.cc }} CXX=${{ matrix.arch.cxx }} \
-         ./configure --host=${{ matrix.arch.host }} --prefix=/linux-${{ matrix.arch.arch }}
+         CC=${{ matrix.cc }} CXX=${{ matrix.cxx }} \
+         ./configure --host=${{ matrix.host }} --prefix=/linux-${{ matrix.arch }}
          make -j$(nproc)
-         tar -czvf opus-${{ matrix.arch.arch }}.tar.gz /linux-${{ matrix.arch.arch }}
+         tar -czvf opus-${{ matrix.arch }}.tar.gz /linux-${{ matrix. arch }}
          tree .libs 
 
-      - name: Upload Opus Binaries (Linux ${{ matrix.arch.arch }})
+      - name: Upload Opus Binaries (Linux ${{ matrix.arch }})
         uses: actions/upload-artifact@v4
         with:
           name: opus-linux-${{ matrix.arch.arch }}
