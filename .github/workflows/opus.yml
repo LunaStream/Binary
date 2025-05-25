@@ -82,11 +82,17 @@ jobs:
         run: |
          ./autogen.sh
          CC=${{ matrix.cc }} CXX=${{ matrix.cxx }} \
-         ./configure --host=${{ matrix.host }} --prefix=/usr/linux-${{ matrix.arch }} --disable-shared --enable-static
+         ./configure --host=${{ matrix.host }} --prefix=${{ github.workspace }}/output/${{ matrix.arch }} --disable-shared --enable-static
          make -j$(nproc)
-         tar -czvf opus-${{ matrix.arch }}.tar.gz /usr/linux-${{ matrix.arch }}
          ls
          tree .libs 
+
+         # Create staging/temp output directory
+         mkdir -p ${{ github.workspace }}/output/${{ matrix.arch }}
+
+         # Package
+         cd ${{ github.workspace }}/output/${{ matrix.arch }}
+         tar -czvf ${{ github.workspace }}/opus-${{ matrix.arch }}.tar.gz .
 
       - name: Upload Opus Binaries (Linux ${{ matrix.arch }})
         uses: actions/upload-artifact@v4
