@@ -53,48 +53,47 @@ jobs:
           name: opus-${{ matrix.sys }}-${{ matrix.carch }}
           path: bin/
 
- build-linux:
-  runs-on: ubuntu-latest
-  strategy:
+  build-linux:
+   runs-on: ubuntu-latest
+   strategy:
     matrix:
-      arch:
+     include:
         - { arch: x86_64, host: "", cc: gcc, cxx: g++, pkgs: ""}
         - { arch: arm64, host: aarch64-linux-gnu, cc: aarch64-linux-gnu-gcc, cxx: aarch64-linux-gnu-g++, pkgs: ""}
         - { arch: riscv64, host: riscv64-linux-gnu, cc: riscv64-linux-gnu-gcc, cxx: riscv64-linux-gnu-g++, pkgs: ""}
 
-  steps:
-    - uses: actions/checkout@v4
-      with: 
-         repository: 'xiph/opus'
-         submodules: 'true'
+   steps:
+      - uses: actions/checkout@v4
+        with: 
+          repository: 'xiph/opus'
+          submodules: 'true'
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y autoconf automake libtool pkg-config make gcc g++ libogg-dev tree
+      - name: Install dependencies
+        run: |
+         sudo apt-get update
+         sudo apt-get install -y autoconf automake libtool pkg-config make gcc g++ libogg-dev tree
 
-        # Install arch specific additional Pkgs if needed 
-        if [ "${{ matrix.pkgs }}" != ""]; 
-then
-        sudo apt-get install -y ${{ matrix.pkgs }}
-        fi
+         # Install arch specific additional Pkgs if needed 
+         if [ "${{ matrix.pkgs }}" != ""]; then
+         sudo apt-get install -y ${{ matrix.pkgs }}
+         fi
 
-        # Install cross-compilers only if needed
-        if [ "${{ matrix.arch.host }}" != "" ]; then
+         # Install cross-compilers only if needed
+         if [ "${{ matrix.arch.host }}" != "" ]; then
           sudo apt-get install -y ${{ matrix.arch.cc }} ${{ matrix.arch.cxx }}
-        fi
+         fi
 
-    - name: Build Opus from source (Linux ${{ matrix.arch.arch }})
-      run: |
-        ./autogen.sh
-        CC=${{ matrix.arch.cc }} CXX=${{ matrix.arch.cxx }} \
-        ./configure --host=${{ matrix.arch.host }} --prefix=/linux-${{ matrix.arch.arch }}
-        make -j$(nproc)
-        tar -czvf opus-${{ matrix.arch.arch }}.tar.gz /linux-${{ matrix.arch.arch }}
-        tree .libs 
+      - name: Build Opus from source (Linux ${{ matrix.arch.arch }})
+        run: |
+         ./autogen.sh
+         CC=${{ matrix.arch.cc }} CXX=${{ matrix.arch.cxx }} \
+         ./configure --host=${{ matrix.arch.host }} --prefix=/linux-${{ matrix.arch.arch }}
+         make -j$(nproc)
+         tar -czvf opus-${{ matrix.arch.arch }}.tar.gz /linux-${{ matrix.arch.arch }}
+         tree .libs 
 
-    - name: Upload Opus Binaries (Linux ${{ matrix.arch.arch }})
-      uses: actions/upload-artifact@v4
-      with:
-        name: opus-linux-${{ matrix.arch.arch }}
-        path: opus-${{ matrix.arch.arch }}.tar.gz
+      - name: Upload Opus Binaries (Linux ${{ matrix.arch.arch }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: opus-linux-${{ matrix.arch.arch }}
+          path: opus-${{ matrix.arch.arch }}.tar.gz
