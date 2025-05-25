@@ -59,7 +59,7 @@ jobs:
     matrix:
      include:
         - { arch: x86_64, host: "", cc: gcc, cxx: g++, pkgs: ""}
-        - { arch: arm64, host: aarch64-linux-gnu, cc: aarch64-linux-gnu-gcc, cxx: aarch64-linux-gnu-g++, pkgs: ""}
+        - { arch: arm64, host: aarch64-linux-gnu, cc: aarch64-linux-gnu-gcc, cxx: aarch64-linux-gnu-g++, pkgs: "gcc-aarch64-linux-gnu g++-aarch64-linux-gnu"}
 
    steps:
       - uses: actions/checkout@v4
@@ -74,12 +74,8 @@ jobs:
 
          # Install arch specific additional Pkgs if needed 
          if [ "${{ matrix.pkgs }}" != ""]; then
+         echo "📦 Found ${{ matrix.pkgs }} pkgs to install for arch: ${{ maxtrix.arch}} ! Installing them...."
          sudo apt-get install -y ${{ matrix.pkgs }}
-         fi
-
-         # Install cross-compilers only if needed
-         if [ "${{ matrix.host }}" != "" ]; then
-          sudo apt-get install -y ${{ matrix.cc }} ${{ matrix.cxx }}
          fi
 
       - name: Build Opus from source (Linux ${{ matrix.arch }})
