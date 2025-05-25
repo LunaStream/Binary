@@ -26,7 +26,7 @@ jobs:
           msystem: ${{ matrix.sys }}
 
       -  name: Install deps
-         run: msys2 -c 'pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config make mingw-w64-x86_64-libogg tree i686-w64-mingw32-gcc i686-w64-mingw32-pkg-config'
+         run: msys2 -c 'pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config cmake make mingw-w64-x86_64-libogg tree mingw-w64-i686-gcc mingw-w64-i686-pkg-config mingw-w64-i686-libogg'
         
       - run: ls
 
