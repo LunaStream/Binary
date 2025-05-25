@@ -90,12 +90,10 @@ jobs:
          # Create staging/temp output directory
          mkdir -p ${{ github.workspace }}/output/${{ matrix.arch }}
 
-         # Package
-         cd ${{ github.workspace }}/output/${{ matrix.arch }}
-         tar -czvf ${{ github.workspace }}/opus-${{ matrix.arch }}.tar.gz .
+         cp -r .libs/* ${{ github.workspace }}/output/${{ matrix.arch }}
 
       - name: Upload Opus Binaries (Linux ${{ matrix.arch }})
         uses: actions/upload-artifact@v4
         with:
           name: opus-linux-${{ matrix.arch }}
-          path: opus-${{ matrix.arch }}.tar.gz
+          path: ${{ github.workspace }}/output/${{ matrix.arch }}
