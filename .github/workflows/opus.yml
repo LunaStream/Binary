@@ -42,6 +42,11 @@ jobs:
           set MSYSTEM=${{ matrix.sys }}
           msys2 -c './configure --host=${{ matrix.carch }}-w64-mingw32 --prefix=/${{ matrix.prefix }} --disable-static --enable-shared && make'
 
+      - name: Copy Binaries 
+        run: cp ./.libs/libopus-0.dll ./bin/opus-win32-${{ matrix.arch }}.dll
+        
+      - run: tree .
+
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
