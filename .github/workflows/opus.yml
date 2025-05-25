@@ -40,7 +40,7 @@ jobs:
       - name: Build Binary
         run: |
           set MSYSTEM=${{ matrix.sys }}
-          msys2 -c './configure --host=${{ matrix.carch }}-w64-mingw32 --prefix=/${{ matrix.prefix }} --disable-static --enable-shared && make'
+          msys2 -c 'mkdir bin && ./configure --host=${{ matrix.carch }}-w64-mingw32 --prefix=/${{ matrix.prefix }} --disable-static --enable-shared && make'
 
       - name: Copy Binaries 
         run: cp ./.libs/libopus-0.dll ./bin/opus-win32-${{ matrix.arch }}.dll
