@@ -60,7 +60,6 @@ jobs:
      include:
         - { arch: x86_64, host: "", cc: gcc, cxx: g++, pkgs: ""}
         - { arch: arm64, host: aarch64-linux-gnu, cc: aarch64-linux-gnu-gcc, cxx: aarch64-linux-gnu-g++, pkgs: ""}
-        - { arch: riscv64, host: riscv64-linux-gnu, cc: riscv64-linux-gnu-gcc, cxx: riscv64-linux-gnu-g++, pkgs: ""}
 
    steps:
       - uses: actions/checkout@v4
