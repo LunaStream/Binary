@@ -82,7 +82,7 @@ jobs:
         run: |
          ./autogen.sh
          CC=${{ matrix.cc }} CXX=${{ matrix.cxx }} \
-         ./configure --host=${{ matrix.host }} --prefix=/linux-${{ matrix.arch }}
+         ./configure --host=${{ matrix.host }} --prefix=/linux-${{ matrix.arch }} --disable-shared --enable-static
          make -j$(nproc)
          tar -czvf opus-${{ matrix.arch }}.tar.gz /linux-${{ matrix.arch }}
          tree .libs 
