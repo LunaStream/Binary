@@ -89,11 +89,11 @@ jobs:
          CC=${{ matrix.cc }} CXX=${{ matrix.cxx }} \
          ./configure --host=${{ matrix.host }} --prefix=/linux-${{ matrix.arch }}
          make -j$(nproc)
-         tar -czvf opus-${{ matrix.arch }}.tar.gz /linux-${{ matrix. arch }}
+         tar -czvf opus-${{ matrix.arch }}.tar.gz /linux-${{ matrix.arch }}
          tree .libs 
 
       - name: Upload Opus Binaries (Linux ${{ matrix.arch }})
         uses: actions/upload-artifact@v4
         with:
-          name: opus-linux-${{ matrix.arch.arch }}
-          path: opus-${{ matrix.arch.arch }}.tar.gz
+          name: opus-linux-${{ matrix.arch }}
+          path: opus-${{ matrix.arch }}.tar.gz
