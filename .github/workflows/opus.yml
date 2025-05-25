@@ -82,9 +82,10 @@ jobs:
         run: |
          ./autogen.sh
          CC=${{ matrix.cc }} CXX=${{ matrix.cxx }} \
-         ./configure --host=${{ matrix.host }} --prefix=/linux-${{ matrix.arch }} --disable-shared --enable-static
+         ./configure --host=${{ matrix.host }} --prefix=/usr/linux-${{ matrix.arch }} --disable-shared --enable-static
          make -j$(nproc)
-         tar -czvf opus-${{ matrix.arch }}.tar.gz /linux-${{ matrix.arch }}
+         tar -czvf opus-${{ matrix.arch }}.tar.gz /usr/linux-${{ matrix.arch }}
+         ls
          tree .libs 
 
       - name: Upload Opus Binaries (Linux ${{ matrix.arch }})
