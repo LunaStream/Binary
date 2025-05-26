@@ -59,6 +59,7 @@ jobs:
     matrix:
      include:
         - { arch: x86_64, host: "", cc: gcc, cxx: g++, pkgs: ""}
+        - { arch: x86, host: i686-linux-gnu, cc: i686-linux-gnu-gcc, cxx: i686-linux-gnu-g++, packages: "gcc-i686-linux-gnu g++-i686-linux-gnu" }
         - { arch: arm64, host: aarch64-linux-gnu, cc: aarch64-linux-gnu-gcc, cxx: aarch64-linux-gnu-g++, pkgs: "gcc-aarch64-linux-gnu g++-aarch64-linux-gnu"}
 
    steps:
